@@ -58,7 +58,7 @@ def plot_pie_chart(y_test):
     labels_count = y_test.value_counts()
     labels = ['Amused', 'Neutral', 'Stressed']
     sizes = [labels_count.get(0, 0), labels_count.get(1, 0), labels_count.get(2, 0)]
-    explode = (0.1, 0, 0)  # explode 1st slice
+    explode = (0, 0, 0)  # no slice exploded
 
     fig1, ax1 = plt.subplots()
     ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
@@ -93,7 +93,6 @@ def main():
                                  BVP_peak_freq, age, height, weight])
 
     st.success(pred)
-
 
 if __name__ == '__main__':
     main()
