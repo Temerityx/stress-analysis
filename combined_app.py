@@ -35,7 +35,7 @@ y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 st.sidebar.text(f"Model Accuracy: {accuracy * 100:.2f}%")
 
-# Creating a function for Prediction and Percentage of Labels
+# Creating a function for Prediction and Pie Chart using Plotly
 def stress_detection(input_data):
     # changing the input_data to numpy array
     input_data_as_numpy_array = np.asarray(input_data)
@@ -43,15 +43,12 @@ def stress_detection(input_data):
     # reshape the array as we are predicting for one instance
     input_data_reshaped = input_data_as_numpy_array.reshape(1, -1)
 
-    prediction = model.predict(input_data_reshaped)
+    # Predict the probabilities for each class
+    probabilities = model.predict_proba(input_data_reshaped)
 
-    result = f"The person is {labels[prediction[0]]}"
-
-    # Calculate percentage of each label
-    label_counts = pd.Series(prediction).value_counts(normalize=True) * 100
-    label_percentages = {labels[label]: f"{percentage:.2f}%" for label, percentage in label_counts.items()}
-
-    result += f"\n\nLabel Percentages:\n{label_percentages}"
+    result = f"The person is {labels[np.argmax(probabilities)]} with probabilities:"
+    for label, prob in zip(labels.values(), probabilities[0]):
+        result += f"\n{label}: {prob * 100:.2f}%"
 
     return result
 
