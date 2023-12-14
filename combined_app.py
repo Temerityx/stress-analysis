@@ -63,9 +63,12 @@ def plot_pie_chart(y_test):
     # Create a list of counts corresponding to the order of labels
     values = [labels_count.get(label, 0) for label in labels]
 
-    # Display Pie Chart using Streamlit
-    st.title('Distribution of Labels')
-    st.pie(values, labels=labels, autopct='%1.1f%%', startangle=90)
+    # Display Pie Chart using Matplotlib and Streamlit
+    fig, ax = plt.subplots()
+    ax.pie(values, labels=labels, autopct='%1.1f%%', startangle=90)
+    
+    # Display the chart using Streamlit
+    st.pyplot(fig)
 
 def main():
     # giving a title
