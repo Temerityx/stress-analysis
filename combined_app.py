@@ -52,8 +52,16 @@ def stress_detection(input_data):
     # Display Pie Chart using Matplotlib
     fig = plot_pie_chart(y_test)
 
+    # Save the Matplotlib figure to a BytesIO buffer
+    buf = io.BytesIO()
+    fig.savefig(buf, format="png")
+    buf.seek(0)
+
     # Display the chart using Streamlit
-    st.pyplot(fig)
+    st.image(buf, format="png", use_container_width=True)
+
+    return result
+
 
     return result
 
@@ -63,12 +71,14 @@ def plot_pie_chart(y_test):
     sizes = [labels_count.get(0, 0), labels_count.get(1, 0), labels_count.get(2, 0)]
     explode = (0, 0, 0)  # no slice exploded
 
-    fig1, ax1 = plt.subplots()
-    ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
+    fig, ax = plt.subplots()
+    ax.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
             shadow=True, startangle=90)
-    ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 
-    return fig1
+    return fig
+
+
 
 def main():
     # giving a title
