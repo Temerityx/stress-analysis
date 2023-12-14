@@ -50,8 +50,7 @@ def stress_detection(input_data):
     result = f"The person is {labels[prediction[0]]}"
 
     # Plot Pie Chart
-    fig = plot_pie_chart(y_test)
-    st.pyplot(fig)
+    plot_pie_chart(y_test)
 
     return result
 
@@ -64,15 +63,9 @@ def plot_pie_chart(y_test):
     # Create a list of counts corresponding to the order of labels
     values = [labels_count.get(label, 0) for label in labels]
 
-    # Handle NaN values by replacing them with 0
-    values = [0 if pd.isna(value) else value for value in values]
-
-    fig, ax = plt.subplots()
-    ax.pie(values, labels=labels, autopct='%1.1f%%', startangle=90)
-    ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-
-    return fig
-
+    # Display Pie Chart using Streamlit
+    st.title('Distribution of Labels')
+    st.pie(values, labels=labels, autopct='%1.1f%%', startangle=90)
 
 def main():
     # giving a title
