@@ -6,7 +6,7 @@ import streamlit as st
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
-import matplotlib.pyplot as plt
+import plotly.express as px
 
 # Load the data
 df = pd.read_csv("merged.csv", index_col=0)
@@ -50,22 +50,17 @@ def stress_detection(input_data):
     result = f"The person is {labels[prediction[0]]}"
 
     # Pie Chart
-    st.pyplot(plot_pie_chart(y_test))
+    st.plotly_chart(plot_pie_chart(y_test))
 
     return result
 
 def plot_pie_chart(y_test):
-    labels_count = y_test.value_counts()
+    labels_count = y_test.value_counts().sort_index()
     labels = ['Amused', 'Neutral', 'Stressed']
-    sizes = [labels_count.get(0, 0), labels_count.get(1, 0), labels_count.get(2, 0)]
-    explode = (0, 0, 0)  # no slice exploded
 
-    fig1, ax1 = plt.subplots()
-    ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
-            shadow=True, startangle=90)
-    ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-
-    return fig1
+    fig = px.pie(labels=labels, values=labels_count, title='Distribution of Labels')
+    
+    return fig
 
 def main():
     # giving a title
