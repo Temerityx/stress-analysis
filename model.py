@@ -5,7 +5,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 
 # Load the data
-df = pd.read_csv("C:/Users/Vignesh/Desktop/stress-analysis/merged.csv", index_col=0)
+df = pd.read_csv("merged.csv", index_col=0)
 
 
 # Define labels
