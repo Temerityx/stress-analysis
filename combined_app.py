@@ -82,9 +82,9 @@ def main():
             body {
                 background-color: #f2f2f2;  /* Set the background color */
             }
-            .st-bw {
+            .stButton {
                 background-color: #336699;  /* Set the Streamlit button color */
-                color: #ffffff;  /* Set the text color */
+                color: #ffffff !important;  /* Set the text color */
             }
         </style>
         """,
@@ -110,7 +110,7 @@ def main():
     weight = st.number_input("Weight", min_value=0, value=70)
 
     # Create a button for Prediction
-    if st.button('Predict Stress Level', key="predict_button", class="st-bw"):
+    if st.button('Predict Stress Level', key="predict_button"):
         result = stress_detection([BVP_mean, BVP_std, EDA_phasic_mean,
                                    EDA_tonic_mean, Resp_mean, TEMP_mean,
                                    BVP_peak_freq, age, height, weight])
