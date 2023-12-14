@@ -15,8 +15,8 @@ labels = {0: "Amused", 1: "Neutral", 2: "Stressed"}
 
 # Define selected features
 selected_feats = [
-    "BVP_mean", "BVP_std", "EDA_phasic_mean", "EDA_phasic_min", "EDA_smna_min",
-    "EDA_tonic_mean", "Resp_mean", "TEMP_mean", "TEMP_std", "TEMP_slope",
+    "BVP_mean", "BVP_std", "EDA_phasic_mean",
+    "EDA_tonic_mean", "Resp_mean", "TEMP_mean", "TEMP_std",
     "BVP_peak_freq", "age", "height", "weight",
 ]
 
@@ -57,13 +57,10 @@ def main():
     BVP_mean = st.text_input('BVP_mean')
     BVP_std = st.text_input('BVP_std')
     EDA_phasic_mean = st.text_input('EDA_phasic_mean')
-    EDA_phasic_min = st.text_input('EDA_phasic_min')
-    EDA_smna_min = st.text_input('EDA_smna_min')
     EDA_tonic_mean = st.text_input('EDA_tonic_mean')
     Resp_mean = st.text_input('Resp_mean')
     TEMP_mean = st.text_input('TEMP_mean')
     TEMP_std = st.text_input('TEMP_std')
-    TEMP_slope = st.text_input('TEMP_slope')
     BVP_peak_freq = st.text_input('BVP_peak_freq')
     age = st.number_input("Age")
     height = st.number_input("Height")
