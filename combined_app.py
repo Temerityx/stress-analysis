@@ -31,6 +31,11 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_
 model = RandomForestClassifier()
 model.fit(X_train, y_train)
 
+# Evaluate accuracy on the test set
+y_pred = model.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+st.sidebar.text(f"Model Accuracy: {accuracy * 100:.2f}%")
+
 # creating a function for Prediction
 def stress_detection(input_data):
     # changing the input_data to numpy array
