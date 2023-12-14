@@ -1,12 +1,11 @@
-# combined_app.py
-
+# Importing necessary libraries
 import numpy as np
 import pandas as pd
 import streamlit as st
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
-import matplotlib.pyplot as plt
+import plotly.express as px
 
 # Load the data
 df = pd.read_csv("merged.csv", index_col=0)
@@ -37,7 +36,7 @@ y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 st.sidebar.text(f"Model Accuracy: {accuracy * 100:.2f}%")
 
-# creating a function for Prediction and Pie Chart
+# Creating a function for Prediction and Pie Chart using Plotly
 def stress_detection(input_data):
     # changing the input_data to numpy array
     input_data_as_numpy_array = np.asarray(input_data)
@@ -49,36 +48,18 @@ def stress_detection(input_data):
 
     result = f"The person is {labels[prediction[0]]}"
 
-    # Display Pie Chart using Matplotlib
-    fig = plot_pie_chart(y_test)
-
-    # Save the Matplotlib figure to a BytesIO buffer
-    buf = io.BytesIO()
-    fig.savefig(buf, format="png")
-    buf.seek(0)
-
-    # Display the chart using Streamlit
-    st.image(buf, format="png", use_container_width=True)
-
-    return result
-
+    # Pie Chart
+    st.plotly_chart(plot_pie_chart(y_test))
 
     return result
 
 def plot_pie_chart(y_test):
-    labels_count = y_test.value_counts()
-    labels = ['Amused', 'Neutral', 'Stressed']
-    sizes = [labels_count.get(0, 0), labels_count.get(1, 0), labels_count.get(2, 0)]
-    explode = (0, 0, 0)  # no slice exploded
+    labels_count = y_test.value_counts().sort_index()
 
-    fig, ax = plt.subplots()
-    ax.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
-            shadow=True, startangle=90)
-    ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    # Create a Plotly pie chart
+    fig = px.pie(labels=labels, values=labels_count, title='Distribution of Labels')
 
     return fig
-
-
 
 def main():
     # giving a title
