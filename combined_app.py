@@ -65,10 +65,13 @@ def plot_pie_chart(y_test):
 
     # Display Pie Chart using Matplotlib and Streamlit
     fig, ax = plt.subplots()
-    ax.pie(values, labels=labels, autopct='%1.1f%%', startangle=90)
+    ax.pie(values, labels=labels, autopct='%1.1f%%', startangle=90, normalize=False)
 
     # Display the chart using Streamlit
     st.pyplot(fig)
+
+# ...
+
 
 
 
