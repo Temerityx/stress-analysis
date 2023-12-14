@@ -5,7 +5,6 @@ import streamlit as st
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
-import plotly.express as px
 
 # Load the data
 df = pd.read_csv("merged.csv", index_col=0)
@@ -36,7 +35,7 @@ y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 st.sidebar.text(f"Model Accuracy: {accuracy * 100:.2f}%")
 
-# Creating a function for Prediction and Bar Chart using Plotly
+# Creating a function for Prediction and Percentage of Labels
 def stress_detection(input_data):
     # changing the input_data to numpy array
     input_data_as_numpy_array = np.asarray(input_data)
@@ -48,19 +47,13 @@ def stress_detection(input_data):
 
     result = f"The person is {labels[prediction[0]]}"
 
-    # Bar Chart
-    fig = plot_bar_chart(y_test)
-    st.plotly_chart(fig)
+    # Calculate percentage of each label
+    label_counts = pd.Series(prediction).value_counts(normalize=True) * 100
+    label_percentages = {labels[label]: f"{percentage:.2f}%" for label, percentage in label_counts.items()}
+
+    result += f"\n\nLabel Percentages:\n{label_percentages}"
 
     return result
-
-def plot_bar_chart(y_test):
-    labels_count = y_test.value_counts().sort_index()
-
-    # Create a Plotly bar chart
-    fig = px.bar(x=labels.keys(), y=labels_count, labels={"x": "Labels", "y": "Count"}, title='Distribution of Labels')
-
-    return fig
 
 def main():
     # giving a title
