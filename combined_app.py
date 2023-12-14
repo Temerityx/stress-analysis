@@ -49,8 +49,11 @@ def stress_detection(input_data):
 
     result = f"The person is {labels[prediction[0]]}"
 
-    # Pie Chart
-    st.pyplot(plot_pie_chart(y_test))
+    # Display Pie Chart using Matplotlib
+    fig = plot_pie_chart(y_test)
+
+    # Display the chart using Streamlit
+    st.pyplot(fig)
 
     return result
 
