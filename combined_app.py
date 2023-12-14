@@ -68,31 +68,33 @@ def plot_pie_chart(probabilities):
     return fig
 
 def main():
-    # giving a title
+    # Set page title and icon
+    st.set_page_config(page_title='Stress Detection App', page_icon=':chart_with_upwards_trend:')
+
+    # Add a title
     st.title('Stress Detection Web App')
 
-    # getting the input data from the user
-    BVP_mean = st.text_input('BVP_mean')
-    BVP_std = st.text_input('BVP_std')
-    EDA_phasic_mean = st.text_input('EDA_phasic_mean')
-    EDA_tonic_mean = st.text_input('EDA_tonic_mean')
-    Resp_mean = st.text_input('Resp_mean')
-    TEMP_mean = st.text_input('TEMP_mean')
-    BVP_peak_freq = st.text_input('BVP_peak_freq')
-    age = st.number_input("Age")
-    height = st.number_input("Height")
-    weight = st.number_input("Weight")
+    # Add a subtitle
+    st.subheader('Enter the required information to predict stress level')
 
-    # code for Prediction
-    pred = ''
+    # Create input fields with labels
+    BVP_mean = st.text_input('BVP_mean', 'Enter BVP_mean')
+    BVP_std = st.text_input('BVP_std', 'Enter BVP_std')
+    EDA_phasic_mean = st.text_input('EDA_phasic_mean', 'Enter EDA_phasic_mean')
+    EDA_tonic_mean = st.text_input('EDA_tonic_mean', 'Enter EDA_tonic_mean')
+    Resp_mean = st.text_input('Resp_mean', 'Enter Resp_mean')
+    TEMP_mean = st.text_input('TEMP_mean', 'Enter TEMP_mean')
+    BVP_peak_freq = st.text_input('BVP_peak_freq', 'Enter BVP_peak_freq')
+    age = st.number_input("Age", min_value=0, value=25)
+    height = st.number_input("Height", min_value=0, value=170)
+    weight = st.number_input("Weight", min_value=0, value=70)
 
-    # creating a button for Prediction
-    if st.button('Diabetes Test Result'):
-        pred = stress_detection([BVP_mean, BVP_std, EDA_phasic_mean,
-                                 EDA_tonic_mean, Resp_mean, TEMP_mean,
-                                 BVP_peak_freq, age, height, weight])
-
-    st.success(pred)
+    # Create a button for Prediction
+    if st.button('Predict Stress Level'):
+        result = stress_detection([BVP_mean, BVP_std, EDA_phasic_mean,
+                                   EDA_tonic_mean, Resp_mean, TEMP_mean,
+                                   BVP_peak_freq, age, height, weight])
+        st.success(result)
 
 if __name__ == '__main__':
     main()
