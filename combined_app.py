@@ -16,7 +16,7 @@ labels = {0: "Amused", 1: "Neutral", 2: "Stressed"}
 # Define selected features
 selected_feats = [
     "BVP_mean", "BVP_std", "EDA_phasic_mean",
-    "EDA_tonic_mean", "Resp_mean", "TEMP_mean", "TEMP_std",
+    "EDA_tonic_mean", "Resp_mean", "TEMP_mean",
     "BVP_peak_freq", "age", "height", "weight",
 ]
 
@@ -65,7 +65,6 @@ def main():
     EDA_tonic_mean = st.text_input('EDA_tonic_mean')
     Resp_mean = st.text_input('Resp_mean')
     TEMP_mean = st.text_input('TEMP_mean')
-    TEMP_std = st.text_input('TEMP_std')
     BVP_peak_freq = st.text_input('BVP_peak_freq')
     age = st.number_input("Age")
     height = st.number_input("Height")
@@ -77,7 +76,7 @@ def main():
     # creating a button for Prediction
     if st.button('Diabetes Test Result'):
         pred = stress_detection([BVP_mean, BVP_std, EDA_phasic_mean,
-                                 EDA_tonic_mean, Resp_mean, TEMP_mean, TEMP_std,
+                                 EDA_tonic_mean, Resp_mean, TEMP_mean,
                                  BVP_peak_freq, age, height, weight])
 
     st.success(pred)
