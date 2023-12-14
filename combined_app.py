@@ -6,6 +6,7 @@ import streamlit as st
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
 
 # Load the data
 df = pd.read_csv("merged.csv", index_col=0)
@@ -36,7 +37,7 @@ y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 st.sidebar.text(f"Model Accuracy: {accuracy * 100:.2f}%")
 
-# creating a function for Prediction
+# creating a function for Prediction and Pie Chart
 def stress_detection(input_data):
     # changing the input_data to numpy array
     input_data_as_numpy_array = np.asarray(input_data)
@@ -47,12 +48,28 @@ def stress_detection(input_data):
     prediction = model.predict(input_data_reshaped)
 
     if prediction[0] == 0:
-        return 'The person is amused'
+        result = 'The person is amused'
     elif prediction[0] == 1:
-        return 'The person is neutral'
+        result = 'The person is neutral'
     else:
-        return 'The person is stressed'
+        result = 'The person is stressed'
 
+    # Pie Chart
+    st.pyplot(plot_pie_chart(prediction))
+
+    return result
+
+def plot_pie_chart(prediction):
+    labels = ['Amused', 'Neutral', 'Stressed']
+    sizes = [list(prediction).count(0), list(prediction).count(1), list(prediction).count(2)]
+    explode = (0.1, 0, 0)  # explode 1st slice
+
+    fig1, ax1 = plt.subplots()
+    ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
+            shadow=True, startangle=90)
+    ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+
+    return fig1
 
 def main():
     # giving a title
