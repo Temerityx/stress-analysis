@@ -49,7 +49,8 @@ def stress_detection(input_data):
     result = f"The person is {labels[prediction[0]]}"
 
     # Pie Chart
-    st.plotly_chart(plot_pie_chart(y_test))
+    fig = plot_pie_chart(y_test)
+    st.plotly_chart(fig)
 
     return result
 
