@@ -69,27 +69,7 @@ def plot_pie_chart(probabilities):
 
 def main():
     # Set page title and icon
-    st.set_page_config(
-        page_title='Stress Detection App',
-        page_icon=':chart_with_upwards_trend:',
-        layout="wide",  # Wide layout
-    )
-
-    # Add custom CSS for styling
-    st.markdown(
-        """
-        <style>
-            body {
-                background-color: #f2f2f2;  /* Set the background color */
-            }
-            .stButton {
-                background-color: #336699;  /* Set the Streamlit button color */
-                color: #ffffff !important;  /* Set the text color */
-            }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+    st.set_page_config(page_title='Stress Detection App', page_icon=':chart_with_upwards_trend:')
 
     # Add a title
     st.title('Stress Detection Web App')
@@ -110,7 +90,7 @@ def main():
     weight = st.number_input("Weight", min_value=0, value=70)
 
     # Create a button for Prediction
-    if st.button('Predict Stress Level', key="predict_button"):
+    if st.button('Predict Stress Level'):
         result = stress_detection([BVP_mean, BVP_std, EDA_phasic_mean,
                                    EDA_tonic_mean, Resp_mean, TEMP_mean,
                                    BVP_peak_freq, age, height, weight])
