@@ -5,6 +5,7 @@ import streamlit as st
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
+import plotly.express as px
 
 # Load the data
 df = pd.read_csv("merged.csv", index_col=0)
@@ -50,7 +51,21 @@ def stress_detection(input_data):
     for label, prob in zip(labels.values(), probabilities[0]):
         result += f"\n{label}: {prob * 100:.2f}%"
 
+    # Pie Chart
+    st.plotly_chart(plot_pie_chart(probabilities[0]))
+
     return result
+
+def plot_pie_chart(probabilities):
+    # Create a Plotly pie chart
+    fig = px.pie(
+        names=list(labels.values()),
+        values=probabilities * 100,
+        title='Class Percentages',
+        labels={'names': 'Label', 'values': 'Percentage'}
+    )
+
+    return fig
 
 def main():
     # giving a title
