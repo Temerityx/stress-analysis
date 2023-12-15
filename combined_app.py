@@ -87,7 +87,7 @@ def main():
     pred = ''
 
     # creating a button for Prediction
-    if st.button('Diabetes Test Result'):
+    if st.button('Test Result'):
         pred = stress_detection([BVP_mean, BVP_std, EDA_phasic_mean,
                                  EDA_tonic_mean, Resp_mean, TEMP_mean,
                                  BVP_peak_freq, age, height, weight])
